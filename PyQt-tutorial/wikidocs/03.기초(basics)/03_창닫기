@@ -1,0 +1,41 @@
+## Ex 3-3. 창 닫기.
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtCore import QCoreApplication
+
+
+class MyApp(QWidget):
+
+  def __init__(self):
+      super().__init__()
+      self.initUI()
+
+  def initUI(self):
+      btn = QPushButton('Quit', self) 
+      """
+      btn는 QPushButton 클래스의 인스턴스이다.
+      생성자 (QPushButton())의 첫 번째 파라미터에는 버튼에 표시될 테스트를 입력 -> 'Quit'
+      두 번째 파라미터에는 버튼이 위치할 부모 위젯을 입력 -> self
+      """
+      btn.move(50, 50)
+      btn.resize(btn.sizeHint())
+      btn.clicked.connect(QCoreApplication.instance().quit)
+      '''
+      PyQt에서 이벤트 처리는 시그널과 슬롯 메커니즘으로 이루어진다.
+      버튼 btn을 클릭하면 'clicked' 시그널이 만들어진다
+      instance()메서드는 현재 인스턴스를 반환한다.
+      'cliced'시그널은 어플리케이션을 종료하는 quit()메서드에 연결된다.
+      발신자는 btn이고 수신자는 어플리케이션 객체(app)
+
+      '''
+
+      self.setWindowTitle('Quit Button')
+      self.setGeometry(300, 300, 300, 200)
+      self.show()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())

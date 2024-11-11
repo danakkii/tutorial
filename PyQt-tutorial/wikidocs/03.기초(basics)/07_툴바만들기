@@ -1,0 +1,33 @@
+## Ex 3-7. 툴바 만들기.
+
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, qApp
+from PyQt5.QtGui import QIcon
+
+
+class MyApp(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        exitAction = QAction(QIcon("C:/Users/Elroilab7/Desktop/인턴/etc/elroilab.png"), 'Exit', self) # QAction 객체 생성
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application') # 상태바 메시지
+        exitAction.triggered.connect(qApp.quit) # 클릭 시 생성되는 시그널은 quit() 메서드에 연결
+
+        self.statusBar()
+
+        self.toolbar = self.addToolBar('Exit') # addToolbar()를 이용해서 툴바를 만들고
+        self.toolbar.addAction(exitAction) # addAction()을 이용해서 툴바에 exitAction 동작추가 
+
+        self.setWindowTitle('Toolbar')
+        self.setGeometry(300, 300, 300, 200)
+        self.show()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
